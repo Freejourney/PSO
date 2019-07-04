@@ -4,6 +4,7 @@ public class Particle {
 
     private double[] position;
     private double[] velocity;
+    private double vmax;
     private double fitness;
     private int dimension;
     private double boundmin, boundmax;
@@ -20,6 +21,15 @@ public class Particle {
         this.boundmax = boundmax;
         this.bestPosition = bestPosition;
         this.bestfitness = bestfitness;
+    }
+
+    public Particle(double boundmin, double boundmax, int dimension, double vmax) {
+        this.boundmin = boundmin;
+        this.boundmax = boundmax;
+        this.dimension = dimension;
+        this.vmax = vmax;
+        this.position = new double[dimension];
+        this.velocity = new double[dimension];
     }
 
     public double[] getPosition() {
@@ -54,12 +64,12 @@ public class Particle {
         this.fitness = fitness;
     }
 
-    public double calcuFitness() {
+    public void calcuFitness() {
         double sum = 0;
         for (int i = 0; i < this.dimension; i++) {
             sum += position[i];
         }
-        return sum;
+        setFitness(sum);
     }
 
     public int getDimension() {
@@ -100,6 +110,10 @@ public class Particle {
 
     public void setBestfitness(double bestfitness) {
         this.bestfitness = bestfitness;
+    }
+
+    public double getVmax() {
+        return this.vmax;
     }
 
     @Override

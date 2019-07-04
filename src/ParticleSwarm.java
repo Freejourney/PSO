@@ -6,15 +6,13 @@ public class ParticleSwarm {
     private int size;
     private Particle globalbestparticle;
 
-    ParticleSwarm(int size, double boundmin, double boundmax, int dimension) {
+    ParticleSwarm(int size, double boundmin, double boundmax, int dimension, double vmax) {
         this.size = size;
         particles = new Particle[size];
         int bestindex = 0;
         double max = -9999;
         for (int i = 0; i < size; i++) {
-            particles[i].setBoundmin(boundmin);
-            particles[i].setBoundmax(boundmax);
-            particles[i].setDimension(dimension);
+            particles[i] = new Particle(boundmin, boundmax, dimension, vmax);
 
             for (int j = 0; j < dimension; j++) {
                 particles[i].setPosition(j, new Random().nextDouble() * (boundmax - boundmin) + boundmin);
@@ -29,6 +27,14 @@ public class ParticleSwarm {
             }
         }
         setGlobalbestparticle(particles[bestindex]);
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public Particle[] getParticles() {
